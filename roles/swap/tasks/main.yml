@@ -1,3 +1,4 @@
 ---
 # Create swapfile
 - name: Create swapfile
+  command: dd if=/dev/zero of={{ swap_path }} bs={{ dd_bs_size_mb }}M count={{ swap_count }} creates={{ swap_path }}

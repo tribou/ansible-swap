@@ -2,11 +2,12 @@
 # All ansible-swap variables
 # Override any in your local ansible group_vars/swap.yml
 
-# Total size for swapfile
-swap_size_mb: 4096
-
 # Location of swapfile
 swap_path: "/swapfile"
 
 # Hosts with low RAM may need to use a small bs size
 dd_bs_size_mb: 256
+
+# Total size for swapfile
+# Count of how many passes dd should make at bs size
+swap_count: 16
