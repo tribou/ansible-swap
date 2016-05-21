@@ -28,3 +28,14 @@
   lineinfile: dest=/etc/sysctl.conf line="vm.vfs_cache_pressure = {{ vfs_cache_pressure }}" regexp="^vm.vfs_cache_pressure[\s]?=" state=present
   notify: sysctl
   when: vfs_cache_pressure != false
+
+- name: Restart server
+  command: shutdown -r now
+
+- name: Wait for server to restart successfully
+  local_action:
+    module: wait_for
+      host={{ ansible_default_ipv4.address }}
+      port=22
+      delay=1
+      timeout=120
