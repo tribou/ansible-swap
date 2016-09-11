@@ -1,6 +1,15 @@
 ---
 - hosts: '{{ target }}'
 
+  remote_user: root
+  
+  gather_facts: no
+
+  pre_tasks:
+    - name: 'Install python2 Debian/Ubuntu'
+      raw: apt-get -y install python-simplejson
+      ignore_errors: true
+
   roles:
     - swap
 
