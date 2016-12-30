@@ -4,19 +4,19 @@
   setup:
 
 - name: Create swapfile
-  command: dd if=/dev/zero of={{ swap_path }} bs={{ dd_bs_size_mb }}M count={{ swap_count }} creates={{ swap_path }}
+  command: "dd if=/dev/zero of={{ swap_path }} bs={{ dd_bs_size_mb }}M count={{ swap_count }} creates={{ swap_path }}"
   register: write_swapfile
 
 - name: Set swapfile permissions
-  file: path={{ swap_path }} mode=600
+  file: path="{{ swap_path }}" mode=600
 
 - name: Build swapfile
-  command: mkswap {{ swap_path }}
+  command: "mkswap {{ swap_path }}"
   register: create_swapfile
   when: write_swapfile.changed
 
 - name: Enable swapfile
-  command: swapon {{ swap_path }}
+  command: "swapon {{ swap_path }}"
   when: create_swapfile.changed
 
 - name: Add swapfile to /etc/fstab
@@ -40,7 +40,7 @@
 
 - name: Wait for server to restart successfully
   local_action: wait_for
-    host={{ target }}
+    host="{{ target }}"
     port=22
     delay=1
     timeout=30
